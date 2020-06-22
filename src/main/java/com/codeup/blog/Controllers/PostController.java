@@ -29,8 +29,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String creatPost(){
-        return"Creat a new post";
+    public String createPost(){
+        return"Create a new post";
     }
 
 

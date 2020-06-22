@@ -2,32 +2,33 @@ package com.codeup.blog.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MathController {
-    @GetMapping("/add/3/and/4")
+    @GetMapping("/add/{a}/and/{b}")
     @ResponseBody
-    public String add(){
-        return "7";
+    public int add(@PathVariable int a,  @PathVariable int b){
+        return a + b;
     }
 
-    @GetMapping("/subtract/3/from/10")
+    @GetMapping("/subtract/{a}/from/{b}")
     @ResponseBody
-    public String subtract(){
-        return "7";
+    public int subtract(@PathVariable int a, @PathVariable int b){
+        return b-a;
     }
 
-    @GetMapping("/multiply/4/and/5")
+    @GetMapping("/multiply/{a}/and/{b}")
     @ResponseBody
-    public String multiply(){
-        return "20";
+    public int multiply(@PathVariable int a, @PathVariable int b){
+        return a * b;
     }
 
-    @GetMapping("/divide/6/by/3")
+    @GetMapping("/divide/{a}/by/{b}")
     @ResponseBody
-    public String divide(){
-        return "2";
+    public int divide(@PathVariable int a, @PathVariable int b){
+        return b/a;
     }
 
 
