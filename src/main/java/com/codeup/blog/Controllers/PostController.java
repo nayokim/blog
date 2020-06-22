@@ -1,30 +1,27 @@
 package com.codeup.blog.Controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
 
-    @GetMapping("/posts")
-    @ResponseBody
+//    @GetMapping("/posts") another way doGet is on the line below Do not do both getmapping and requestmapping
+    @RequestMapping(value = "/ads", method = RequestMethod.GET)
     public String allPosts(){
-        return "blog posts";
+        return "posts index page";
     }
 
     @GetMapping("/posts/{id}")
     @ResponseBody
     public String showPost(@PathVariable long id){
-        return "this is post number: " + id;
+        return "view an individual post with an id of : " + id ;
     }
 
     @GetMapping("/posts/create")
     @ResponseBody
     public String viewCreatePost(){
-        return "form to create post goes here";
+        return "view the form for creating a post";
     }
 
     @PostMapping("/posts/create")
