@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head ('Nayo Blog')">
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar"></header>
+<div class="container">
+    <h1 th:text="${post.title}"></h1>
+    <p th:text="${post.body}"></p>
+</div>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
