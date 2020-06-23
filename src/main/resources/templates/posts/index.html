@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <header th:replace="fragments/navbar :: navbar"></header>
-    <div class="container">
+<header th:replace="fragments/navbar :: navbar"></header>
+<div class="container">
     <div th:each="post : ${allPosts}">
-        <h1 th:text = "${post.title}"></h1>
+        <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
     </div>
-    </div>
+</div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>

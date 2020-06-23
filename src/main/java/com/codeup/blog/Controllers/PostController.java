@@ -1,26 +1,31 @@
 package com.codeup.blog.Controllers;
 
+import com.codeup.blog.daos.PostsRepository;
 import com.codeup.blog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostController {
 
-//    @GetMapping("/posts") another way doGet is on the line below Do not do both getmapping and requestmapping
-    @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public String allPosts(Model model){
-        ArrayList<Post> allPosts = new ArrayList<>();
-        allPosts.add(new Post("1", "test-1"));
-        allPosts.add(new Post("2", "test-2"));
-        allPosts.add(new Post("3", "test-3"));
-        allPosts.add(new Post("4", "test-4"));
+    private PostsRepository postsDao;
 
-        model.addAttribute("allPosts", allPosts);
-        return "posts/index";
+    public PostController(PostsRepository postsRepository){
+        postsDao = postsRepository;
+    }
+
+//    @GetMapping("/posts") another way doGet is on the line below Do not do both getmapping and requestmapping
+//    @RequestMapping(value = "/posts", method = RequestMethod.GET)
+    @GetMapping("/posts")
+    public String allPosts(Model model){
+       List<Post> allPosts = postsDao.findAll();
+       model.addAttribute("allPosts", allPosts);
+       return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
@@ -40,8 +45,30 @@ public class PostController {
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost(){
-        return"Create a new post";
+    public String save(){
+        Post newPost = new Post("Hello", "My name is Nayoung");
+        postsDao.save(newPost);
+        return "Create a new post";
+    }
+
+    @PutMapping("posts/{id}/edit")
+    @ResponseBody
+    public String update(@PathVariable long id){
+        //find a post
+        Post foundPost = postsDao.getOne(id); //select * from ads where id =?
+        //edit the post
+        foundPost.setTitle("Xbox series X");
+        //save the changes
+        postsDao.save(foundPost); //update posts set title = ? where id =?
+        return "posted edited";
+    }
+
+
+    @DeleteMapping("/posts/{id}")
+    @ResponseBody
+    public String destroy(@PathVariable long id){
+        postsDao.deleteById(id);
+        return "ad deleted";
     }
 
 
