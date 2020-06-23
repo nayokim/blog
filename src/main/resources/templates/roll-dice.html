@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Roll the dice')">
-</head>
+<head th:replace="fragments/header :: head('Roll the dice')"></head>
+
 <body>
 <header th:replace="fragments/navbar :: navbar"></header>
 <div class="container">
@@ -11,11 +11,15 @@
         <a th:href="@{'/roll-dice/' + ${number}}" th:text="${number}"></a>
     </div>
 
-    <p>Your Guess: </p><span th:text="${numberGuess}">test</span>
-    <p>Random Roll: </p><span th:text="${randomNumber}">random roll</span>
-    <div>
-        <p th:if="${correct}"> You are correct!</p>
-        <p th:if="${!correct}">Try again!</p>
+    <div th:if="${numberGuess}">
+        <p><strong>Your Guess:</strong> <span th:text="${numberGuess}">test</span></p>
+        <p><strong>Random Roll: </strong> <span th:text="${randomNumber}">random roll</span></p>
+    </div>
+    <div th:if="${correct}">
+        <p> You are correct!</p>
+    </div>
+    <div th:if="${correct !=null && !correct}">
+        <p>Try again!</p>
     </div>
 </div>
 
