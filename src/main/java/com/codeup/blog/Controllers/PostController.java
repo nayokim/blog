@@ -1,6 +1,7 @@
 package com.codeup.blog.Controllers;
 
 import com.codeup.blog.daos.PostsRepository;
+import com.codeup.blog.daos.UsersRepository;
 import com.codeup.blog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import java.util.List;
 public class PostController {
 
     private PostsRepository postsDao;
+    private UsersRepository usersDao;
 
-    public PostController(PostsRepository postsRepository){
+    public PostController(PostsRepository postsRepository, UsersRepository usersRepository){
         postsDao = postsRepository;
+        usersDao = usersRepository;
     }
 
 //    @GetMapping("/posts") another way doGet is on the line below Do not do both getmapping and requestmapping
