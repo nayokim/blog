@@ -27,8 +27,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String showPost(@PathVariable long id, Model model){
-        Post post = new Post("Hello World", "This is my first post", owner);
+    public String show(@PathVariable long id, Model model){
+        Post post = new Post("Hello World", "This is my first post", null);
 
         model.addAttribute("post", post);
 
@@ -44,7 +44,7 @@ public class PostController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String save(){
-        Post newPost = new Post("Hello", "My name is Nayoung", owner);
+        Post newPost = new Post("Hello", "My name is Nayoung", null);
         postsDao.save(newPost);
         return "Create a new post";
     }
