@@ -3,6 +3,7 @@ package com.codeup.blog.Controllers;
 import com.codeup.blog.daos.PostsRepository;
 import com.codeup.blog.daos.UsersRepository;
 import com.codeup.blog.models.Post;
+import com.codeup.blog.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +32,9 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String show(@PathVariable long id, Model model){
-        Post post = new Post("Hello World", "This is my first post", null);
-
+        Post post = postsDao.getOne(id);
+        model.addAttribute("postId", id);
         model.addAttribute("post", post);
-
         return "posts/show";
     }
 
@@ -47,7 +47,8 @@ public class PostController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String save(){
-        Post newPost = new Post("Hello", "My name is Nayoung", null);
+        User currentUser = usersDao.getOne(1L);
+        Post newPost = new Post("Hello", "My name is Nayoung", currentUser);
         postsDao.save(newPost);
         return "Create a new post";
     }
