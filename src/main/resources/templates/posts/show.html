@@ -12,6 +12,10 @@
         <p th:text="${post.body}"></p>
         <div>Created by: <span th:text="${post.owner.email}"></span></div>
 
+        <ul>
+            <li th:each="category: ${post.getCategories()}" th:text="${category.name}"></li>
+        </ul>
+
         <div th:each="image: ${post.images}">
             <img th:src="${image.path}" th:alt="${image.description}">
         </div>

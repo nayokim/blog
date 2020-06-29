@@ -10,6 +10,9 @@
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
         <p>Created by: <span th:text="${post.owner.username}"></span></p>
+        <div th:each="image: ${post.images}">
+            <img th:src="${image.path}" th:alt="${image.description}">
+        </div>
     </div>
 </div>
 
