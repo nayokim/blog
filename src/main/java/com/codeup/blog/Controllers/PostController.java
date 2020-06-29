@@ -48,7 +48,7 @@ public class PostController {
     @ResponseBody
     public String save(){
         User currentUser = usersDao.getOne(1L);
-        Post newPost = new Post("Hello", "My name is Nayoung", currentUser);
+        Post newPost = new Post("Hello", "My name is Nayoung", currentUser,null);
         postsDao.save(newPost);
         return "Create a new post";
     }

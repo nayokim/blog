@@ -9,6 +9,7 @@
     <div th:each="post : ${allPosts}">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
+        <p>Created by: <span th:text="${post.owner.username}"></span></p>
     </div>
 </div>
 
