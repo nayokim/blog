@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class PostController {
@@ -30,7 +28,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String showPost(@PathVariable long id, Model model){
-        Post post = new Post("Hello World", "This is my first post");
+        Post post = new Post("Hello World", "This is my first post", owner);
 
         model.addAttribute("post", post);
 
@@ -46,7 +44,7 @@ public class PostController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String save(){
-        Post newPost = new Post("Hello", "My name is Nayoung");
+        Post newPost = new Post("Hello", "My name is Nayoung", owner);
         postsDao.save(newPost);
         return "Create a new post";
     }
