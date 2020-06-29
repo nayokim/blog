@@ -13,6 +13,10 @@
         <div th:each="image: ${post.images}">
             <img th:src="${image.path}" th:alt="${image.description}">
         </div>
+        <ul>
+            <li th:each="category: ${post.getCategories()}" th:text="${category.name}"></li>
+        </ul>
+
     </div>
 </div>
 
