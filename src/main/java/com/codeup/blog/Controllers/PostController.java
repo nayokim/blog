@@ -54,17 +54,23 @@ public class PostController {
         return "redirect:/posts/" +savedPost.getId();
     }
 
-    @PutMapping("posts/{id}/edit")
-    @ResponseBody
-    public String update(@PathVariable long id){
+    @GetMapping("posts/{id}/edit")
+    public String showEditForm(Model model, @PathVariable long id){
         //find a post
-        Post foundPost = postsDao.getOne(id); //select * from ads where id =?
-        //edit the post
-        foundPost.setTitle("Xbox series X");
-        //save the changes
-        postsDao.save(foundPost); //update posts set title = ? where id =?
-        return "posted edited";
+        Post postToEdit = postsDao.getOne(id);
+        model.addAttribute("post", postToEdit);
+        return "posts/edit";
     }
+
+    @PostMapping("posts/{id}/edit")
+    public String update(@ModelAttribute Post postToEdit){
+        User currentUser = usersDao.getOne(1L);
+        postToEdit.setOwner(currentUser);
+        // save the changes
+        postsDao.save(postToEdit);// update ads set title = ? where id = ?
+        return "redirect:/posts/" + postToEdit.getId();
+    }
+
 
 
     @DeleteMapping("/posts/{id}")
