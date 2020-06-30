@@ -39,18 +39,21 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String viewCreatePost(){
-        return "view the form for creating a post";
+    public String showForm(Model vmodel){
+        //<form th:action="@{/posts/create}" th:method="post" th:object="${post}"> "" in addattribute needs to match th:object
+        vmodel.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String save(){
+    public String save(
+            @RequestParam(value="title") String title,
+            @RequestParam(value="body") String body
+    ){
         User currentUser = usersDao.getOne(1L);
-        Post newPost = new Post("Hello", "My name is Nayoung", currentUser,null,null);
-        postsDao.save(newPost);
-        return "Create a new post";
+        Post newPost = new Post(title, body, currentUser,null,null);
+        Post savedPost= postsDao.save(newPost);
+        return "redirect:/posts/" +savedPost.getId();
     }
 
     @PutMapping("posts/{id}/edit")
