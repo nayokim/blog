@@ -46,13 +46,11 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String save(
-            @RequestParam(value="title") String title,
-            @RequestParam(value="body") String body
-    ){
+    //we dont need a req param for every param.
+    public String save(@ModelAttribute Post postToBeSaved){
         User currentUser = usersDao.getOne(1L);
-        Post newPost = new Post(title, body, currentUser,null,null);
-        Post savedPost= postsDao.save(newPost);
+        postToBeSaved.setOwner(currentUser);
+        Post savedPost= postsDao.save(postToBeSaved);
         return "redirect:/posts/" +savedPost.getId();
     }
 
