@@ -38,7 +38,7 @@ public class User {
         this.password = password;
     }
 
-    //copy constructor
+    //copy constructor -  we create a new object using the current values of another. This will be used in order to fulfill the contract defined by the interfaces in the security package.
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
         email = copy.email;
