@@ -5,6 +5,7 @@ import com.codeup.blog.daos.PostsRepository;
 import com.codeup.blog.daos.UsersRepository;
 import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class PostController {
     @PostMapping("/posts/create")
     //we dont need a req param for every param.
     public String save(@ModelAttribute Post postToBeSaved){
-        User currentUser = usersDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToBeSaved.setOwner(currentUser);
         Post savedPost= postsDao.save(postToBeSaved);
         emailService.prepareAndSend(savedPost,"A new post has been posted", "A Post has been created with an id of: " + savedPost.getId());
@@ -67,7 +68,7 @@ public class PostController {
 
     @PostMapping("posts/{id}/edit")
     public String update(@ModelAttribute Post postToEdit){
-        User currentUser = usersDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToEdit.setOwner(currentUser);
         // save the changes
         postsDao.save(postToEdit);// update ads set title = ? where id = ?
