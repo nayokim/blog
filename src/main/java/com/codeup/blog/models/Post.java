@@ -1,5 +1,7 @@
 package com.codeup.blog.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,9 +21,11 @@ public class Post {
     @OneToOne
     private User owner;
 
+    @JsonBackReference
     @OneToMany (cascade= CascadeType.ALL, mappedBy ="post")
     private List<PostImage> images;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="posts_categories",

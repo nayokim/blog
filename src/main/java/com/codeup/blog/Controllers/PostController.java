@@ -24,6 +24,12 @@ public class PostController {
         this.usersDao = usersRepository;
         this.emailService = emailService;
     }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> viewPostInJSON(){
+        return postsDao.findAll();
+    }
+
 //    @GetMapping("/posts") another way doGet is on the line below Do not do both getmapping and requestmapping
 //    @RequestMapping(value = "/posts", method = RequestMethod.GET)
     @GetMapping("/posts")
@@ -77,11 +83,10 @@ public class PostController {
 
 
 
-    @DeleteMapping("/posts/{id}")
-    @ResponseBody
+    @PostMapping("/posts/{id}/delete")
     public String destroy(@PathVariable long id){
         postsDao.deleteById(id);
-        return "ad deleted";
+        return "redirect:/posts";
     }
 
 
