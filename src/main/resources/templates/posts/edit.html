@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: head('Home')">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,7 +17,7 @@
         <button>Save changes</button>
     </form>
 
-    <form th:action="${'/posts/' + post.id + '/delete'}" method="post">
+    <form sec:authorize="hasRole('ROLE_TEACHER)" th:action="${'/posts/' + post.id + '/delete'}" method="post">
         <button class="btn btn-danger">Delete</button>
     </form>
 </div>
